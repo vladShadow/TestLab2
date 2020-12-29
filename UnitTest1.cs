@@ -24,36 +24,7 @@ namespace XUnitTestProject1
         {
             return (uint)random.Next(MaxUint);
         }
-
-        [Fact]
-        public void InitTestEqual()
-        {
-            string password = "test password";
-            string salt = "test salt";
-            uint adler = 16;
-
-            PasswordHasher.Init(salt, adler);
-            string hash1 = PasswordHasher.GetHash(password);
-            string hash2 = PasswordHasher.GetHash(password, salt, adler);
-
-            Assert.Equal(hash1, hash2);
-        }
-
-        [Fact]
-        public void InitTestNotEqual()
-        {
-            string password = "test password";
-            string salt1 = "test salt 1";
-            string salt2 = "test salt 2";
-            uint adler1 = 16;
-            uint adler2 = 32;
-
-            PasswordHasher.Init(salt1, adler1);
-            string hash1 = PasswordHasher.GetHash(password);
-            string hash2 = PasswordHasher.GetHash(password, salt2, adler2);
-
-            Assert.NotEqual(hash1, hash2);
-        }
+        
 
         [Fact]
         public void GetHashTestParamsNull()
@@ -184,6 +155,36 @@ namespace XUnitTestProject1
             uint adler2 = GenerateRandomUint();
             string hash1 = PasswordHasher.GetHash(password, salt, adler1);
             string hash2 = PasswordHasher.GetHash(password, salt, adler2);
+
+            Assert.NotEqual(hash1, hash2);
+        }
+
+        [Fact]
+        public void InitTestEqual()
+        {
+            string password = "test password";
+            string salt = "test salt";
+            uint adler = 16;
+
+            PasswordHasher.Init(salt, adler);
+            string hash1 = PasswordHasher.GetHash(password);
+            string hash2 = PasswordHasher.GetHash(password, salt, adler);
+
+            Assert.Equal(hash1, hash2);
+        }
+
+        [Fact]
+        public void InitTestNotEqual()
+        {
+            string password = "test password";
+            string salt1 = "test salt 1";
+            string salt2 = "test salt 2";
+            uint adler1 = 16;
+            uint adler2 = 32;
+
+            PasswordHasher.Init(salt1, adler1);
+            string hash1 = PasswordHasher.GetHash(password);
+            string hash2 = PasswordHasher.GetHash(password, salt2, adler2);
 
             Assert.NotEqual(hash1, hash2);
         }
